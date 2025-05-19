@@ -1,8 +1,14 @@
-const mongoose = require("mongoose");;
+const mongoose = require("mongoose");
 
-const connectDatabase=()=>{
-mongoose.connect(process.env.DB_URL,{useNewUrlParser:true,useUnifiedTopology:true}).then((data)=>{
-    console.log(`Connected to MongoDB with server ${data.connection.host}`);
-})
-}
-module.exports = connectDatabase;
+/**
+ * Connects to MongoDB using the provided URI.
+ * @param {string} uri - MongoDB connection string
+ * @returns {Promise<mongoose.Connection>}
+ */
+module.exports = function connectDatabase(uri) {
+  return mongoose
+    .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((conn) =>
+      console.log(`✔️  MongoDB connected at ${conn.connection.host}`)
+    );
+};

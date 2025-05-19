@@ -1,4 +1,4 @@
-const errorHander = require('../utils/errorHandler');
+const errorHandler = require('../utils/errorHandler');
 
 module.exports = (err,req,res,next)=>{
     err.statusCode = err.statusCode || 500;
@@ -7,7 +7,7 @@ module.exports = (err,req,res,next)=>{
     //Cast Error : wrong mongodb id error
     if (err.name == "CastError"){
         const message = `Resource not found. Invalid ${err.path}`;
-        err = new errorHander(message,400);
+        err = new errorHandler(message,400);
     }
 
     //Mongoose duplicate key error
@@ -15,20 +15,20 @@ module.exports = (err,req,res,next)=>{
         let field = Object.keys(err.keyValue)[0];
         let value = err.keyValue[field]
         const message=`Duplicate entry for ${field}: ${value}`
-        err = new errorHander(message,400)
+        err = new errorHandler(message,400)
     }
 
     //Wrong JWT error
     if (err.name == "JsonWebTokenError"){
         const message = `Invalid Json Web Token, please try again`;
-        err = new errorHander(message,400);
+        err = new errorHandler(message,400);
     }
 
     //JWTEXpire error
 
     if (err.name == "TokenExpiredError"){
         const message = `Invalid Json Web Token, please try again`;
-        err = new errorHander(message,400);
+        err = new errorHandler(message,400);
     }
 
 

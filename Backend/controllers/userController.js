@@ -20,19 +20,19 @@ exports.loginUser = catchAsyncError(async(req,res,next)=>{
     
     //checking if user has given password and email both
     if(!email || !password){
-        return next(new errorHander("Please provide email and password",400))       
+        return next(new errorHandler("Please provide email and password",400))       
             }
             //checking if user is registered or not
             const user = await User.findOne({email}).select("+password");
             if(!user){
-                return next(new errorHander("Invalid email or password",401))
+                return next(new errorHandler("Invalid email or password",401))
             }
 
           
             const isPasswordMatched =await user.comparePassword(password)
             console.log(isPasswordMatched)
             if(!isPasswordMatched){
-                return next(new errorHander("Invalid email or password",401))
+                return next(new errorHandler("Invalid email or password",401))
             }
            
    sendToken(user,200,res);
