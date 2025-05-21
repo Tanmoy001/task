@@ -40,7 +40,6 @@ const Navbar=()=> {
         {isAuthenticated ? (
           <>
             <Link to="/summary-gen" className="btn" style={{ padding: '10px 20px' }}>Generator</Link>
-            <Link to="/history-log" className="btn" style={{ padding: '10px 20px' }}>History</Link>
             <button onClick={handleLogout} className="btn" style={{ padding: '10px 20px' }}>Logout</button>
           </>
         ) : (
